@@ -4,9 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/kbg00/AndroidStudioProjects/ProjectBook/app/src/main/res/layout/activity_main.xml" value="0.2390625" />
+        <entry key="..\:/Users/kbg00/AndroidStudioProjects/ProjectRecord/app/src/main/res/drawable/selection_background.xml" value="0.1475" />
         <entry key="..\:/Users/kbg00/AndroidStudioProjects/ProjectRecord/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/kbg00/AndroidStudioProjects/ProjectRecord/app/src/main/res/layout/calendar_day_layout.xml" value="0.190234375" />
         <entry key="..\:/Users/kbg00/AndroidStudioProjects/ProjectRecord/app/src/main/res/layout/calendar_month_header_layout.xml" value="0.190234375" />
+        <entry key="..\:/Users/kbg00/AndroidStudioProjects/ProjectRecord/app/src/main/res/layout/fragment_calendar.xml" value="0.25364583333333335" />
       </map>
     </option>
   </component>

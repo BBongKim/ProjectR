@@ -3,8 +3,9 @@ package com.bbongkim.projectrecord.calendar
 import android.view.View
 import android.widget.TextView
 import com.bbongkim.projectrecord.R
+import com.bbongkim.projectrecord.databinding.CalendarMonthHeaderLayoutBinding
 import com.kizitonwose.calendarview.ui.ViewContainer
 
 class MonthHeaderContainer(view: View): ViewContainer(view) {
-    val textView = view.findViewById<TextView>(R.id.calendarMonthText)
+    val textView = CalendarMonthHeaderLayoutBinding.bind(view).calendarMonthText
 }
