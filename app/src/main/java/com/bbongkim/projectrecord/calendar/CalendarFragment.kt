@@ -1,7 +1,8 @@
 package com.bbongkim.projectrecord.calendar
 
-import android.graphics.Color
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,8 +21,10 @@ import java.util.*
 // 메인 화면에 올라올 달력을 담고 있는 프래그먼트
 class CalendarFragment : Fragment() {
 
+    private var currentMonth: YearMonth? = null
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
+
 
     companion object {
         @JvmStatic
@@ -30,18 +33,21 @@ class CalendarFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("Debug", "OnCreate")
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.d("Debug", "OnCreateView")
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("Debug", "OnViewCreated")
         init()
         setDate()
     }
@@ -49,6 +55,7 @@ class CalendarFragment : Fragment() {
     // Fragment는 View보다 오래 지속되기 때문에, View에 대한 참조를 여기서 다 제거해야 한다.
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d("Debug", "onDestroyView")
         _binding = null
     }
 
@@ -59,6 +66,7 @@ class CalendarFragment : Fragment() {
             override fun create(view: View): DayViewContainer = DayViewContainer(view)
 
             override fun bind(container: DayViewContainer, day: CalendarDay) {
+                container.date = day.date
                 container.day = day
                 container.calendarView = binding.calendar
                 val textView = container.textView
@@ -66,11 +74,11 @@ class CalendarFragment : Fragment() {
 
                 if (day.owner == DayOwner.THIS_MONTH) {
                     if (day.date == container.selectedDate) {
-                        textView.setTextColor(Color.WHITE)
-                        textView.setBackgroundResource(R.drawable.selection_background)
+                        //textView.setTextColor(Color.WHITE)
+                        //textView.setBackgroundResource(R.drawable.selection_background)
                     } else {
-                        textView.setTextColor(Color.BLACK)
-                        textView.background = null
+                        //textView.setTextColor(Color.BLACK)
+                        //textView.background = null
                     }
                 }
             }
@@ -78,18 +86,21 @@ class CalendarFragment : Fragment() {
         }
 
         // 달력 헤더 초기화
-        binding.calendar.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthHeaderContainer> {
-            override fun create(view: View): MonthHeaderContainer = MonthHeaderContainer(view)
+        binding.calendar.monthHeaderBinder =
+            object : MonthHeaderFooterBinder<MonthHeaderContainer> {
+                override fun create(view: View): MonthHeaderContainer = MonthHeaderContainer(view)
 
-            override fun bind(container: MonthHeaderContainer, month: CalendarMonth) {
-                container.textView.text = String.format(getString(R.string.kr_monthYear), month.year, month.month)
+                override fun bind(container: MonthHeaderContainer, month: CalendarMonth) {
+                    container.textView.text =
+                        String.format(getString(R.string.kr_monthYear), month.year, month.month)
+                }
             }
-        }
     }
 
     // 달력 날짜 초기화 (변경할 일 없을듯)
     private fun setDate() {
-        val currentMonth = YearMonth.now()
+        // viewModel 이용해서 기존 상태 복원 구현이 필요할 듯
+        val currentMonth = currentMonth ?: YearMonth.now()
         val firstMonth = currentMonth.minusMonths(10)   // 앞 뒤로 최대 10개월까지
         val lastMonth = currentMonth.plusMonths(10)
         val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
