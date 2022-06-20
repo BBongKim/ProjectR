@@ -13,6 +13,9 @@
         <action
             android:id="@+id/calendar_to_record"
             app:destination="@id/recordFragment" />
+        <action
+            android:id="@+id/calendar_to_create"
+            app:destination="@id/createFragment" />
     </fragment>
     <fragment
         android:id="@+id/recordFragment"
@@ -22,4 +25,9 @@
             android:name="message"
             app:argType="com.bbongkim.projectrecord.record.RecordArgument" />
     </fragment>
+    <fragment
+        android:id="@+id/createFragment"
+        android:name="com.bbongkim.projectrecord.record.CreateFragment"
+        android:label="fragment_create"
+        tools:layout="@layout/fragment_create" />
 </navigation>

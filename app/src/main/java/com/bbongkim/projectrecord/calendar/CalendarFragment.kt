@@ -1,12 +1,13 @@
 package com.bbongkim.projectrecord.calendar
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.bbongkim.projectrecord.R
 import com.bbongkim.projectrecord.databinding.FragmentCalendarBinding
 import com.kizitonwose.calendarview.model.CalendarDay
@@ -24,7 +25,6 @@ class CalendarFragment : Fragment() {
     private var currentMonth: YearMonth? = null
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
-
 
     companion object {
         @JvmStatic
@@ -48,8 +48,9 @@ class CalendarFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("Debug", "OnViewCreated")
-        init()
+        calendarInit()
         setDate()
+        setClickListener()
     }
 
     // Fragment는 View보다 오래 지속되기 때문에, View에 대한 참조를 여기서 다 제거해야 한다.
@@ -60,8 +61,8 @@ class CalendarFragment : Fragment() {
     }
 
     // 달력 초기화
-    private fun init() {
-        // 일 초기화
+    private fun calendarInit() {
+        // 달력 일 초기화
         binding.calendar.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View): DayViewContainer = DayViewContainer(view)
 
@@ -106,5 +107,12 @@ class CalendarFragment : Fragment() {
         val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
         binding.calendar.setup(firstMonth, lastMonth, firstDayOfWeek)
         binding.calendar.scrollToMonth(currentMonth)
+    }
+
+    private fun setClickListener() {
+        binding.recordCreateButton.setOnClickListener {
+            // goto Create Fragment
+            this.requireView().findNavController().navigate(R.id.calendar_to_create)
+        }
     }
 }

@@ -28,6 +28,11 @@ class DayViewContainer(view: View) : ViewContainer(view) {
                 val message = RecordArgument(date.year, date.month.value, day.day)
                 val action = CalendarFragmentDirections.calendarToRecord(message)
                 Navigation.findNavController(view).navigate(action)
+
+                // if record exists :
+                // goto Fragment Record
+                // else :
+                // goto Fragment Create
             }
         }
     }
