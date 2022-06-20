@@ -20,14 +20,18 @@
     <fragment
         android:id="@+id/recordFragment"
         android:name="com.bbongkim.projectrecord.record.RecordFragment"
-        android:label="RecordFragment">
+        android:label="fragment_record">
         <argument
-            android:name="message"
+            android:name="messageDate"
             app:argType="com.bbongkim.projectrecord.record.RecordArgument" />
     </fragment>
     <fragment
         android:id="@+id/createFragment"
         android:name="com.bbongkim.projectrecord.record.CreateFragment"
         android:label="fragment_create"
-        tools:layout="@layout/fragment_create" />
+        tools:layout="@layout/fragment_create" >
+        <argument
+            android:name="messageToday"
+            app:argType="com.bbongkim.projectrecord.record.RecordArgument" />
+    </fragment>
 </navigation>

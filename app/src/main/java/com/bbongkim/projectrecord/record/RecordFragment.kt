@@ -10,7 +10,6 @@ import com.bbongkim.projectrecord.databinding.FragmentRecordBinding
 class RecordFragment : Fragment() {
     private lateinit var binding: FragmentRecordBinding
 
-
     companion object {
         @JvmStatic
         fun newInstance() = RecordFragment()
@@ -32,8 +31,9 @@ class RecordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            val message = RecordFragmentArgs.fromBundle(it).message
-            binding.dateText.text = "${message.year}년 ${message.month}월 ${message.day}일"
+            val message = RecordFragmentArgs.fromBundle(it).messageDate
+            val text = "${message.year}년 ${message.month}월 ${message.day}일"
+            binding.dateText.text = text
         }
     }
 }

@@ -6,15 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.bbongkim.projectrecord.R
 import com.bbongkim.projectrecord.databinding.FragmentCalendarBinding
+import com.bbongkim.projectrecord.record.RecordArgument
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
+import java.time.LocalDateTime
 import java.time.YearMonth
 import java.time.temporal.WeekFields
 import java.util.*
@@ -100,7 +101,7 @@ class CalendarFragment : Fragment() {
 
     // 달력 날짜 초기화 (변경할 일 없을듯)
     private fun setDate() {
-        // viewModel 이용해서 기존 상태 복원 구현이 필요할 듯
+        // TODO viewModel 이용해서 기존 상태 복원 구현이 필요할 듯
         val currentMonth = currentMonth ?: YearMonth.now()
         val firstMonth = currentMonth.minusMonths(10)   // 앞 뒤로 최대 10개월까지
         val lastMonth = currentMonth.plusMonths(10)
@@ -110,9 +111,19 @@ class CalendarFragment : Fragment() {
     }
 
     private fun setClickListener() {
+        //일기 쓰기 버튼
         binding.recordCreateButton.setOnClickListener {
-            // goto Create Fragment
-            this.requireView().findNavController().navigate(R.id.calendar_to_create)
+            //
+            val localDateTime = LocalDateTime.now()
+            val messageToday = RecordArgument(
+                localDateTime.year,
+                localDateTime.monthValue,
+                localDateTime.dayOfMonth,
+                localDateTime.hour,
+                localDateTime.minute
+            )
+            val action = CalendarFragmentDirections.calendarToCreate(messageToday)
+            this.requireView().findNavController().navigate(action)
         }
     }
 }
