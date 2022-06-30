@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".calendar.CalendarFragment">
 
     <com.kizitonwose.calendarview.CalendarView
@@ -15,6 +16,8 @@
         app:cv_inDateStyle="none"
         app:cv_monthHeaderResource="@layout/calendar_month_header_layout"
         app:cv_outDateStyle="none"
+        app:cv_hasBoundaries="true"
+        app:cv_orientation="horizontal"
         app:cv_scrollMode="paged"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

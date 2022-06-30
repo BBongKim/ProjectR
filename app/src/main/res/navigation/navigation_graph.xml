@@ -31,7 +31,11 @@
         android:label="fragment_create"
         tools:layout="@layout/fragment_create" >
         <argument
-            android:name="messageToday"
+            android:name="messageDate"
             app:argType="com.bbongkim.projectrecord.record.RecordArgument" />
+        <action
+            android:id="@+id/create_to_record"
+            app:popUpTo="@id/calendarFragment"
+            app:destination="@id/recordFragment" />
     </fragment>
 </navigation>

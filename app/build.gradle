@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
     id 'kotlin-parcelize'
 }
@@ -10,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.bbongkim.projectrecord"
-        minSdk 22
+        minSdk 26
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -54,5 +55,9 @@ dependencies {
 
     // Calender View
     implementation 'com.github.kizitonwose:CalendarView:1.0.4'
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.6'
+
+    // Room
+    implementation "androidx.room:room-runtime:2.4.2"
+    kapt "androidx.room:room-compiler:2.4.2"
 }

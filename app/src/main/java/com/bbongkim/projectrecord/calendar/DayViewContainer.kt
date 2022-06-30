@@ -16,7 +16,6 @@ import java.time.LocalDate
 class DayViewContainer(view: View) : ViewContainer(view) {
     lateinit var date: LocalDate
     lateinit var day: CalendarDay
-    lateinit var calendarView: CalendarView
     var selectedDate: LocalDate? = null
     private val binding = CalendarDayLayoutBinding.bind(view)
     val textView = binding.calendarDayText

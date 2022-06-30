@@ -5,12 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.findNavController
 import com.bbongkim.projectrecord.R
+import com.bbongkim.projectrecord.database.RecordDatabase
+import com.bbongkim.projectrecord.database.RecordEntity
 import com.bbongkim.projectrecord.databinding.FragmentCreateBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 
 class CreateFragment : Fragment() {
-
     private lateinit var binding: FragmentCreateBinding
+    private lateinit var message: RecordArgument
 
     companion object {
         @JvmStatic
@@ -31,11 +39,45 @@ class CreateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setArguments()
+        setListener()
+    }
+
+    private fun setArguments() {
         arguments?.let {
-            val message = CreateFragmentArgs.fromBundle(it).messageToday
-            val text = "${message.year}년 ${message.month}월 ${message.day}일"
+            message = CreateFragmentArgs.fromBundle(it).messageDate
+            val text = "${message.year}년 ${message.month}월 ${message.day}일 ${message.hour}시 ${message.min}분"
             binding.date.text = text
         }
     }
 
+    private fun setListener() {
+        // TODO 데이터 바인딩 리팩토링
+        binding.saveButton.setOnClickListener {
+            val db = RecordDatabase.getInstance(requireContext())
+            val recordDao = db.recordDao()
+            val date = getDate()
+            val record = RecordEntity(date, getContents())
+
+            CoroutineScope(Dispatchers.IO).launch {
+                recordDao.insert(record)
+            }
+
+            Toast.makeText(requireContext(), "저장 완료", Toast.LENGTH_SHORT).show()
+
+            // RecordFragment로 이동
+            val message = RecordArgument(date.year, date.monthValue, date.dayOfMonth, date.hour, date.minute)
+            val action = CreateFragmentDirections.createToRecord(message)
+            this.requireView().findNavController().navigate(action)
+        }
+    }
+
+    private fun getDate(): LocalDateTime {
+        return LocalDateTime.of(message.year, message.month, message.day, message.hour, message.min, 0)
+    }
+
+    private fun getContents(): String {
+        return binding.record.text.toString()
+    }
 }
