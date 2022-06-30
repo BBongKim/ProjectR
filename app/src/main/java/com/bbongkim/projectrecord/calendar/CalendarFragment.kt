@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.bbongkim.projectrecord.R
 import com.bbongkim.projectrecord.databinding.FragmentCalendarBinding
@@ -23,8 +23,8 @@ import java.util.*
 
 // 메인 화면에 올라올 달력을 담고 있는 프래그먼트
 class CalendarFragment : Fragment() {
-
-    private lateinit var viewModel: CalendarViewModel
+    // Delegate Property 이용
+    private val viewModel: CalendarViewModel by activityViewModels()
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!! // nullable 해서 이렇게 만듦
 
@@ -50,8 +50,6 @@ class CalendarFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("Debug", "OnViewCreated")
-        // TODO 리펙토링
-        viewModel = ViewModelProvider(this).get(CalendarViewModel::class.java)
         calendarInit()
         setDate()
         setClickListener()
