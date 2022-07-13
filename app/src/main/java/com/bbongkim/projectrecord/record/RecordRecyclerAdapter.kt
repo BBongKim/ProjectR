@@ -8,7 +8,11 @@ import com.bbongkim.projectrecord.databinding.RecordItemLayoutBinding
 
 class RecordRecyclerAdapter : RecyclerView.Adapter<RecordRecyclerAdapter.RecordViewHolder>() {
     // TODO item layout 완성, BindingAdapter, ViewModel 추가 필요
-    private val recordList = ArrayList<RecordEntity>()
+    private var recordList: List<RecordEntity> = ArrayList()
+
+    fun setRecords(records: List<RecordEntity>) {
+        recordList = records
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
         val binding =

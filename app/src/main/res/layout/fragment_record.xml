@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.bbongkim.projectrecord.viewmodel.CalendarViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,10 +28,12 @@
             android:id="@+id/recordRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dateText" />
+            app:layout_constraintTop_toBottomOf="@+id/dateText"
+            app:setRecords="@{viewModel.recordList}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

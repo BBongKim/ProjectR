@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import com.bbongkim.projectrecord.R
 import com.bbongkim.projectrecord.databinding.CalendarDayLayoutBinding
 import com.bbongkim.projectrecord.record.RecordArgument
+import com.bbongkim.projectrecord.viewmodel.CalendarViewModel
 import com.kizitonwose.calendarview.CalendarView
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth

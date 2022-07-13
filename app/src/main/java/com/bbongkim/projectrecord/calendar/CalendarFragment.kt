@@ -12,6 +12,7 @@ import com.bbongkim.projectrecord.R
 import com.bbongkim.projectrecord.databinding.FragmentCalendarBinding
 import com.bbongkim.projectrecord.record.RecordArgument
 import com.bbongkim.projectrecord.viewmodel.CalendarViewModel
+import com.bbongkim.projectrecord.viewmodel.MonthViewModel
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.ui.DayBinder
@@ -24,7 +25,7 @@ import java.util.*
 // 메인 화면에 올라올 달력을 담고 있는 프래그먼트
 class CalendarFragment : Fragment() {
     // Delegate Property 이용
-    private val viewModel: CalendarViewModel by activityViewModels()
+    private val viewModel: MonthViewModel by activityViewModels()
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!! // nullable 해서 이렇게 만듦
 

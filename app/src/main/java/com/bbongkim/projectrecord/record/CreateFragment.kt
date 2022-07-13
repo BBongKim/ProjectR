@@ -6,17 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.bbongkim.projectrecord.R
 import com.bbongkim.projectrecord.database.RecordDatabase
 import com.bbongkim.projectrecord.database.RecordEntity
 import com.bbongkim.projectrecord.databinding.FragmentCreateBinding
+import com.bbongkim.projectrecord.viewmodel.CalendarViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
 class CreateFragment : Fragment() {
+    private val viewModel: CalendarViewModel by activityViewModels()
     private lateinit var binding: FragmentCreateBinding
     private lateinit var message: RecordArgument
 
@@ -53,16 +56,12 @@ class CreateFragment : Fragment() {
     }
 
     private fun setListener() {
-        // TODO 데이터 바인딩 리팩토링
+        // TODO 데이터 바인딩 리팩토링 (기능확장된 EditText로 가능하면)
         binding.saveButton.setOnClickListener {
-            val db = RecordDatabase.getInstance(requireContext())
-            val recordDao = db.recordDao()
+
             val date = getDate()
             val record = RecordEntity(date, getContents())
-
-            CoroutineScope(Dispatchers.IO).launch {
-                recordDao.insert(record)
-            }
+            viewModel.insertRecord(record)
 
             Toast.makeText(requireContext(), "저장 완료", Toast.LENGTH_SHORT).show()
 

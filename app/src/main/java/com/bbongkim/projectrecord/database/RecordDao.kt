@@ -16,9 +16,10 @@ interface RecordDao {
     @Delete
     fun delete(record: RecordEntity)
 
+    // TODO O월 O일에 해당하는 기록 모두 가져오도록 쿼리 변경 필요
     @Query("SELECT * FROM record WHERE date = :date")
-    fun getRecordsWithDate(date: LocalDateTime): List<RecordEntity>
+    fun fetchRecordsWithDate(date: LocalDateTime): LiveData<List<RecordEntity>>
 
     @Query("SELECT * FROM record")
-    fun getAllRecords(): List<RecordEntity>
+    fun fetchAllRecords(): LiveData<List<RecordEntity>>
 }
